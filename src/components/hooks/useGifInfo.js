@@ -17,16 +17,19 @@ export default function useGifInfo(apiManager, id) {
     history.goBack();
   }
 
+  async function loadGifInfo(){
+    await apiManager.loadById(id);
+    const data = apiManager.gifInfo;
+    setGifInfo(<GifInfo
+      data={data}
+      onBackButtonClick={onButtonClick}
+    />);
+    setLoad(true);
+  }
+
   useEffect(
     () => {
-      apiManager.loadById(id).then(() => {
-        const data = apiManager.gifInfo;
-        setGifInfo(<GifInfo
-          data={data}
-          onBackButtonClick={onButtonClick}
-        />);
-        setLoad(true);
-      });
+      loadGifInfo();
     }, [id],
   );
 

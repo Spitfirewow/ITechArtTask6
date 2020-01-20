@@ -5,11 +5,9 @@ import useSearchBar from '../hooks/useSearchBar';
 import GifsContainer from '../GifsContainer';
 import useSearch from '../hooks/useSearch';
 import MoreButton from '../MoreButton';
-import APIManager from '../APIManager';
+import apiManager from '../APIManager';
 
 export default function SearchPage() {
-  const apiManager = new APIManager();
-
   const {
     didLoad, text, gifs, onMoreButtonClick,
   } = useSearch(apiManager);

@@ -32,18 +32,11 @@ function getMultipleGifs(data) {
   return data.map(getGifModel);
 }
 
-let instance = null;
-
-export default class APIManager {
+class APIManager {
   constructor() {
-    if (instance) {
-      return instance;
-    }
-    instance = this;
     this.currentGifs = [];
     this.displayedCount = 0;
     this.gifInfo = {};
-    return instance;
   }
 
   async load(request) {
@@ -75,3 +68,5 @@ export default class APIManager {
     this.displayedCount = 0;
   }
 }
+
+export default new APIManager();

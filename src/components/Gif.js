@@ -25,12 +25,10 @@ export default function Gif({
 }
 
 Gif.propTypes = {
-  image: shape(
-    {
-      url: string,
-      width: string,
-      height: string,
-    },
-  ).isRequired,
+  image: shape({
+    url: string,
+    width: string,
+    height: string,
+  }).isRequired,
   id: string.isRequired,
 };

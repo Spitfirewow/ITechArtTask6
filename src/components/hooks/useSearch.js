@@ -25,13 +25,12 @@ export default function useSearch(apiManager) {
     );
   }
 
-  function loadGifs() {
-    apiManager.load(text).then(() => {
-      setGifs(
-        apiManager.currentGifs.map(getGif),
-      );
-      setLoad(true);
-    });
+  async function loadGifs() {
+    await apiManager.load(text);
+    setGifs(
+      apiManager.currentGifs.map(getGif),
+    );
+    setLoad(true);
   }
 
   useEffect(
