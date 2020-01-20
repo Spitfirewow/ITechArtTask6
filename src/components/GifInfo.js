@@ -2,20 +2,19 @@ import React from 'react';
 import {
   string, shape, func,
 } from 'prop-types';
+
 import BackButton from './BackButton';
+import Picture from './Picture';
 
 export default function GifInfo({
-  data, callback,
+  data, onBackButtonClick,
 }) {
   return (
     <div className="gif-info-wrapper">
-      <div
-        className="gif-picture"
-        style={{
-          backgroundImage: `url(${data.fullImage.url})`,
-          width: `${data.fullImage.width}px`,
-          height: `${data.fullImage.height}px`,
-        }}
+      <Picture
+        url={data.fullImage.url}
+        width={data.fullImage.width}
+        height={data.fullImage.height}
       />
       <div className="gif-name">
         Name:
@@ -35,7 +34,7 @@ export default function GifInfo({
           backgroundImage: `url(${data.avatarUrl})`,
         }}
       />
-      <BackButton callback={callback} />
+      <BackButton onClick={onBackButtonClick} />
     </div>
   );
 }
@@ -50,5 +49,5 @@ GifInfo.propTypes = {
       url: string,
     }),
   }).isRequired,
-  callback: func.isRequired,
+  onBackButtonClick: func.isRequired,
 };

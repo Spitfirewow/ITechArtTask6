@@ -1,14 +1,14 @@
 import React from 'react';
 import { func } from 'prop-types';
 
-export default function MoreButton({ callback }) {
+export default function MoreButton({ onClick }) {
   return (
     <div className="button-wrapper">
       <button
         type="button"
         className="more-btn"
         id="more-btn"
-        onClick={callback}
+        onClick={onClick}
       >
         <i className="fas fa-ellipsis-h" />
       </button>
@@ -17,5 +17,5 @@ export default function MoreButton({ callback }) {
 }
 
 MoreButton.propTypes = {
-  callback: func.isRequired,
+  onClick: func.isRequired,
 };

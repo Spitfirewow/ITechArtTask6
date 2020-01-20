@@ -2,20 +2,12 @@ const apiKey = '1P2IShy91gDLXOmgRvgvDVIk94PkJYPs';
 const baseUrl = new URL('https://api.giphy.com/v1/gifs/');
 const blockSize = 20;
 
-export default function APIManager() {
-  this.currentGifs = [];
-  this.currentDisplayed = 0;
-  this.request = '';
-  this.gifInfo = {};
-}
-
-function getUrl(url, info) {
+function getUrl(url, query) {
   const result = new URL(url);
-  const callback = (x) => result.searchParams.set(x, info[x]);
-  if (info) Object.keys(info).forEach(callback);
+  const callback = (x) => result.searchParams.set(x, query[x]);
+  if (query) Object.keys(query).forEach(callback);
   return result;
 }
-
 
 async function makeRequest(url) {
   const request = new Request(url, { cache: 'default' });
@@ -37,38 +29,49 @@ function getGifModel(data) {
 }
 
 function getMultipleGifs(data) {
-  return data.map((item) => getGifModel(item));
+  return data.map(getGifModel);
 }
 
-APIManager.prototype.load = async function load() {
-  const url = getUrl(`${baseUrl}search`,
-    {
-      api_key: apiKey,
-      q: this.request,
-      limit: blockSize,
-      offset: this.currentGifs.length,
-      rating: 'G',
-      lang: 'en',
-    });
-  const result = await makeRequest(url);
-  this.currentGifs = result.length ? this.currentGifs.concat(getMultipleGifs(result)) : [];
-};
+let instance = null;
 
-APIManager.prototype.loadById = async function loadById(id) {
-  const url = getUrl(`${baseUrl}${id}`, { api_key: apiKey });
-  const result = await makeRequest(url);
-  this.gifInfo = getGifModel(result);
-};
+export default class APIManager {
+  constructor() {
+    if (instance) {
+      return instance;
+    }
+    instance = this;
+    this.currentGifs = [];
+    this.displayedCount = 0;
+    this.gifInfo = {};
+    return instance;
+  }
 
-APIManager.prototype.increaseCurrentDisplayed = function increaseCurrentDisplayed() {
-  this.currentDisplayed += 1;
-};
+  async load(request) {
+    const url = getUrl(`${baseUrl}search`,
+      {
+        api_key: apiKey,
+        q: request,
+        limit: blockSize,
+        offset: this.currentGifs.length,
+        rating: 'G',
+        lang: 'en',
+      });
+    const result = await makeRequest(url);
+    this.currentGifs = result.length ? this.currentGifs.concat(getMultipleGifs(result)) : [];
+  }
 
-APIManager.prototype.eraseGifs = function eraseGifs() {
-  this.currentGifs = [];
-  this.currentDisplayed = 0;
-};
+  async loadById(id) {
+    const url = getUrl(`${baseUrl}${id}`, { api_key: apiKey });
+    const result = await makeRequest(url);
+    this.gifInfo = getGifModel(result);
+  }
 
-APIManager.prototype.setRequest = function setRequest(request) {
-  this.request = request;
-};
+  increasedisplayedCount() {
+    this.displayedCount += 1;
+  }
+
+  eraseGifs() {
+    this.currentGifs = [];
+    this.displayedCount = 0;
+  }
+}

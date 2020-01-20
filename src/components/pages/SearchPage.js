@@ -1,32 +1,29 @@
 import React from 'react';
-import PropTypes, { func, array } from 'prop-types';
+
 import SearchBar from '../SearchBar';
 import useSearchBar from '../hooks/useSearchBar';
 import GifsContainer from '../GifsContainer';
 import useSearch from '../hooks/useSearch';
 import MoreButton from '../MoreButton';
+import APIManager from '../APIManager';
 
-export default function SearchPage({ apiManager }) {
+export default function SearchPage() {
+  const apiManager = new APIManager();
+
   const {
     didLoad, text, gifs, onMoreButtonClick,
   } = useSearch(apiManager);
 
-  const {
-    value, handleChange, buttonState, onButtonClick, onKeyDown,
-  } = useSearchBar(text, false);
+  const searchBarProps = useSearchBar(text, false);
 
   if (didLoad) {
     return (
       <>
         <SearchBar
-          value={value}
-          handleChange={handleChange}
-          buttonState={buttonState}
-          onButtonClick={onButtonClick}
-          onKeyDown={onKeyDown}
+          {...searchBarProps}
         />
         <GifsContainer gifs={gifs} />
-        <MoreButton callback={onMoreButtonClick} />
+        <MoreButton onClick={onMoreButtonClick} />
       </>
     );
   }
@@ -35,12 +32,3 @@ export default function SearchPage({ apiManager }) {
     <div />
   );
 }
-
-SearchPage.propTypes = {
-  apiManager: PropTypes.shape({
-    setRequest: func,
-    load: func,
-    eraseGifs: func,
-    currentGifs: array,
-  }).isRequired,
-};

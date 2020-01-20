@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {
   useLocation,
 } from 'react-router-dom';
+
 import Gif from '../Gif';
 
 const searchOffset = 3;
@@ -13,17 +14,21 @@ export default function useSearch(apiManager) {
   const [gifs, setGifs] = useState(null);
   const text = decodeURIComponent(urlParams.get('q'));
 
+  function getGif(gifData) {
+    return (
+      <li key={gifData.id}>
+        <Gif
+          image={gifData.smallImage}
+          id={gifData.id}
+        />
+      </li>
+    );
+  }
+
   function loadGifs() {
-    apiManager.load().then(() => {
+    apiManager.load(text).then(() => {
       setGifs(
-        apiManager.currentGifs.map((item) => (
-          <li key={item.id}>
-            <Gif
-              image={item.smallImage}
-              id={item.id}
-            />
-          </li>
-        )),
+        apiManager.currentGifs.map(getGif),
       );
       setLoad(true);
     });
@@ -32,7 +37,6 @@ export default function useSearch(apiManager) {
   useEffect(
     () => {
       apiManager.eraseGifs();
-      apiManager.setRequest(text);
       loadGifs();
     }, [text],
   );

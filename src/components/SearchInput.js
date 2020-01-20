@@ -1,7 +1,7 @@
 import React from 'react';
 import { string, func } from 'prop-types';
 
-export default function SearchInput({ text, callback, onKeyDown }) {
+export default function SearchInput({ text, onChange, onKeyDown }) {
   return (
     <input
       className="search-input"
@@ -9,7 +9,7 @@ export default function SearchInput({ text, callback, onKeyDown }) {
       type="text"
       id="search-input"
       value={text}
-      onChange={callback}
+      onChange={onChange}
       onKeyDown={onKeyDown}
     />
   );
@@ -17,6 +17,6 @@ export default function SearchInput({ text, callback, onKeyDown }) {
 
 SearchInput.propTypes = {
   text: string.isRequired,
-  callback: func.isRequired,
+  onChange: func.isRequired,
   onKeyDown: func.isRequired,
 };

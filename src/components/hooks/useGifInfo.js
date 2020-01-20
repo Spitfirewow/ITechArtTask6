@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+
 import GifInfo from '../GifInfo';
 
 export default function useGifInfo(apiManager, id) {
@@ -20,10 +21,13 @@ export default function useGifInfo(apiManager, id) {
     () => {
       apiManager.loadById(id).then(() => {
         const data = apiManager.gifInfo;
-        setGifInfo(<GifInfo data={data} callback={onButtonClick} />);
+        setGifInfo(<GifInfo
+          data={data}
+          onBackButtonClick={onButtonClick}
+        />);
         setLoad(true);
       });
-    }, [],
+    }, [id],
   );
 
   return { didLoad, gifInfo };

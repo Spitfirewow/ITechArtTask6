@@ -1,5 +1,6 @@
 import React from 'react';
 import { bool, string, func } from 'prop-types';
+
 import SearchInput from './SearchInput';
 import SearchButton from './SearchButton';
 
@@ -10,8 +11,15 @@ export default function SearchBar({
   return (
     <div className="search-wrapper">
       <div className="search-bar">
-        <SearchInput text={value} callback={handleChange} onKeyDown={onKeyDown} />
-        <SearchButton disabled={buttonState} callback={onButtonClick} />
+        <SearchInput
+          text={value}
+          onChange={handleChange}
+          onKeyDown={onKeyDown}
+        />
+        <SearchButton
+          disabled={buttonState}
+          onClick={onButtonClick}
+        />
       </div>
     </div>
   );

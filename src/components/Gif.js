@@ -6,20 +6,19 @@ import {
   Link,
 } from 'react-router-dom';
 
+import Picture from './Picture';
+
 export default function Gif({
   image, id,
 }) {
   const link = `/gif/${id}`;
   return (
     <Link to={link}>
-      <div
-        className="gif-picture"
-        style={{
-          backgroundImage: `url(${image.url})`,
-          width: `${image.width}px`,
-          height: `${image.height}px`,
-        }}
-        key={id}
+      <Picture
+        url={image.url}
+        width={image.width}
+        height={image.height}
+        id={id}
       />
     </Link>
   );
