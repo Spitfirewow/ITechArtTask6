@@ -1,13 +1,13 @@
 import React from 'react';
 import {
-  string, shape, func,
+  string, shape,
 } from 'prop-types';
 
 import BackButton from './BackButton';
 import Picture from './Picture';
 
 export default function GifInfo({
-  data, onBackButtonClick,
+  data,
 }) {
   return (
     <div className="gif-info-wrapper">
@@ -34,7 +34,7 @@ export default function GifInfo({
           backgroundImage: `url(${data.avatarUrl})`,
         }}
       />
-      <BackButton onClick={onBackButtonClick} />
+      <BackButton />
     </div>
   );
 }
@@ -49,5 +49,4 @@ GifInfo.propTypes = {
       url: string,
     }),
   }).isRequired,
-  onBackButtonClick: func.isRequired,
 };

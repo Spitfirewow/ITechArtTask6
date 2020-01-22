@@ -3,19 +3,20 @@ import {
   useParams,
 } from 'react-router-dom';
 
-import GifInfoContainer from '../GifInfoContainer';
-import useGifInfo from '../hooks/useGifInfo';
-import apiManager from '../APIManager';
+import {
+  bool, shape, string, func,
+} from 'prop-types';
+import GifInfoWrapper from '../GifInfoWrapper';
+import useGifInfo from '../../hooks/useGifInfo';
 
-export default function GifInfoPage() {
-  
+export default function GifInfoPage({ didLoad, gifInfo, onPageLoad }) {
   const { id } = useParams();
 
-  const { didLoad, gifInfo } = useGifInfo(apiManager, id);
+  useGifInfo(id, onPageLoad);
 
   if (didLoad) {
     return (
-      <GifInfoContainer gifInfo={gifInfo} />
+      <GifInfoWrapper gifInfo={gifInfo} />
     );
   }
 
@@ -23,3 +24,17 @@ export default function GifInfoPage() {
     <div />
   );
 }
+
+GifInfoPage.propTypes = {
+  didLoad: bool.isRequired,
+  gifInfo: shape({
+    title: string,
+    avatarURL: string,
+    time: string,
+    username: string,
+    fullImage: shape({
+      url: string,
+    }),
+  }).isRequired,
+  onPageLoad: func.isRequired,
+};

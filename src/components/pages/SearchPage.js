@@ -1,16 +1,18 @@
 import React from 'react';
+import { func, bool, node } from 'prop-types';
 
-import SearchBar from '../SearchBar';
-import useSearchBar from '../hooks/useSearchBar';
-import GifsContainer from '../GifsContainer';
-import useSearch from '../hooks/useSearch';
+import SearchBar from '../../containers/SearchBarContainer';
+import useSearchBar from '../../hooks/useSearchBar';
+import GifsWrapper from '../GifsWrapper';
+import useSearch from '../../hooks/useSearch';
 import MoreButton from '../MoreButton';
-import apiManager from '../APIManager';
 
-export default function SearchPage() {
+export default function SearchPage({
+  onPageLoad, didLoad, gifs, onMoreButtonClick,
+}) {
   const {
-    didLoad, text, gifs, onMoreButtonClick,
-  } = useSearch(apiManager);
+    text,
+  } = useSearch(onPageLoad);
 
   const searchBarProps = useSearchBar(text, false);
 
@@ -20,8 +22,8 @@ export default function SearchPage() {
         <SearchBar
           {...searchBarProps}
         />
-        <GifsContainer gifs={gifs} />
-        <MoreButton onClick={onMoreButtonClick} />
+        <GifsWrapper gifs={gifs} />
+        <MoreButton onClick={() => onMoreButtonClick(text)} />
       </>
     );
   }
@@ -30,3 +32,10 @@ export default function SearchPage() {
     <div />
   );
 }
+
+SearchPage.propTypes = {
+  onMoreButtonClick: func.isRequired,
+  gifs: node.isRequired,
+  didLoad: bool.isRequired,
+  onPageLoad: func.isRequired,
+};

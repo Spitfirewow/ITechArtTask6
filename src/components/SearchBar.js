@@ -6,7 +6,11 @@ import SearchButton from './SearchButton';
 
 
 export default function SearchBar({
-  value, handleChange, buttonState, onButtonClick, onKeyDown,
+  value,
+  handleChange,
+  buttonState,
+  onButtonClick,
+  onKeyDown,
 }) {
   return (
     <div className="search-wrapper">
@@ -14,11 +18,11 @@ export default function SearchBar({
         <SearchInput
           text={value}
           onChange={handleChange}
-          onKeyDown={onKeyDown}
+          onKeyDown={(e) => onKeyDown(e, value)}
         />
         <SearchButton
           disabled={buttonState}
-          onClick={onButtonClick}
+          onClick={() => onButtonClick(value)}
         />
       </div>
     </div>
