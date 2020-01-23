@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setSearchBarValue, setGifs, toggleGifsLoad } from '../actions';
+import { setSearchBarValue, setGifs, gifsLoaded } from '../actions';
 import SearchPage from '../components/pages/SearchPage';
 import apiManager from '../components/APIManager';
 import Gif from '../components/Gif';
@@ -20,7 +20,7 @@ function getGif(gifData) {
 async function loadGifs(value, dispatch) {
   await apiManager.load(value);
   dispatch(setGifs(apiManager.currentGifs.map(getGif)));
-  dispatch(toggleGifsLoad(true));
+  dispatch(gifsLoaded());
 }
 
 const mapStateToProps = (state) => ({

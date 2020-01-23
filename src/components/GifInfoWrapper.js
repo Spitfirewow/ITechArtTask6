@@ -1,14 +1,14 @@
 import React from 'react';
 import { node } from 'prop-types';
 
-export default function GifInfoContainer({ gifInfo }) {
+export default function GifInfoWrapper({ gifInfoNode }) {
   return (
     <div className="gifs-container" id="gif-info-container">
-      {gifInfo}
+      {gifInfoNode}
     </div>
   );
 }
 
-GifInfoContainer.propTypes = {
-  gifInfo: node.isRequired,
+GifInfoWrapper.propTypes = {
+  gifInfoNode: node.isRequired,
 };

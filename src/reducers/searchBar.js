@@ -1,9 +1,7 @@
-const searchBar = (state = { value: '', buttonState: true }, action) => {
+const searchBar = (state = { value: '' }, action) => {
   switch (action.type) {
     case 'SET_SEARCH_BAR_VALUE':
-      return { ...state, value: action.value };
-    case 'SET_SEARCH_BUTTON_STATE':
-      return { ...state, buttonState: action.isDisabled };
+      return { ...state, value: action.payload };
     default:
       return state;
   }

@@ -16,7 +16,7 @@ export default function GifInfoPage({ didLoad, gifInfo, onPageLoad }) {
 
   if (didLoad) {
     return (
-      <GifInfoWrapper gifInfo={gifInfo} />
+      <GifInfoWrapper gifInfoNode={gifInfo} />
     );
   }
 

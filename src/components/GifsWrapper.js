@@ -1,19 +1,18 @@
 import React from 'react';
 import { node } from 'prop-types';
 
-export default function GifsContainer(props) {
-  const { gifs } = props;
+export default function GifsWrapper({ children }) {
   return (
     <div className="gifs-container" id="gifs-container">
       <div className="gif-wrapper">
         <div className="gifs">
-          {gifs}
+          {children}
         </div>
       </div>
     </div>
   );
 }
 
-GifsContainer.propTypes = {
-  gifs: node.isRequired,
+GifsWrapper.propTypes = {
+  children: node.isRequired,
 };

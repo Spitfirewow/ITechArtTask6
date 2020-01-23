@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { bool, string, func } from 'prop-types';
 
 import SearchInput from './SearchInput';
@@ -18,11 +18,11 @@ export default function SearchBar({
         <SearchInput
           text={value}
           onChange={handleChange}
-          onKeyDown={(e) => onKeyDown(e, value)}
+          onKeyDown={useCallback((e) => { onKeyDown(e, value); }, [value])}
         />
         <SearchButton
           disabled={buttonState}
-          onClick={() => onButtonClick(value)}
+          onClick={useCallback(() => { onButtonClick(value); }, [value])}
         />
       </div>
     </div>

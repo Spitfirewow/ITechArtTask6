@@ -1,18 +1,7 @@
 import React from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { func } from 'prop-types';
 
-export default function BackButton() {
-  const history = useHistory();
-  const location = useLocation();
-
-  function onButtonClick() {
-    if (history.length === 1) {
-      history.replace('/');
-      history.push(location);
-    }
-    history.goBack();
-  }
-
+export default function BackButton({ onButtonClick }) {
   return (
     <div className="button-wrapper">
       <button
@@ -26,3 +15,7 @@ export default function BackButton() {
     </div>
   );
 }
+
+BackButton.propTypes = {
+  onButtonClick: func.isRequired,
+};

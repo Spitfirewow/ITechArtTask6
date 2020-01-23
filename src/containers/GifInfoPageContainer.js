@@ -1,23 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { setGifInfo, toggleGifInfoLoad } from '../actions';
+import { setGifInfo, gifInfoLoaded } from '../actions';
 import GifInfoPage from '../components/pages/GifInfoPage';
 import apiManager from '../components/APIManager';
 import GifInfo from '../components/GifInfo';
 
 async function loadGifInfo(id, dispatch) {
-  await apiManager.loadById(id);
-  const data = apiManager.gifInfo;
-  dispatch(setGifInfo(<GifInfo
-    data={data}
-  />));
-  dispatch(toggleGifInfoLoad(true));
+  const data = await apiManager.loadById(id);
+  dispatch(setGifInfo(
+    data,
+  ));
+  dispatch(gifInfoLoaded());
 }
 
 const mapStateToProps = (state) => ({
   didLoad: state.gifInfo.didLoad,
-  gifInfo: state.gifInfo.gifInfo,
+  gifInfo: <GifInfo data={state.gifInfo.gifInfo} />,
 });
 
 const mapDispatchToProps = (dispatch) => ({

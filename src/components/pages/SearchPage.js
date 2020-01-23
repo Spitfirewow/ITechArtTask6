@@ -1,5 +1,7 @@
-import React from 'react';
-import { func, bool, node } from 'prop-types';
+import React, { useCallback } from 'react';
+import {
+  func, bool, node,
+} from 'prop-types';
 
 import SearchBar from '../../containers/SearchBarContainer';
 import useSearchBar from '../../hooks/useSearchBar';
@@ -15,6 +17,7 @@ export default function SearchPage({
   } = useSearch(onPageLoad);
 
   const searchBarProps = useSearchBar(text, false);
+  const buttonCallback = useCallback(() => { onMoreButtonClick(text); }, [text]);
 
   if (didLoad) {
     return (
@@ -22,8 +25,10 @@ export default function SearchPage({
         <SearchBar
           {...searchBarProps}
         />
-        <GifsWrapper gifs={gifs} />
-        <MoreButton onClick={() => onMoreButtonClick(text)} />
+        <GifsWrapper>
+          {gifs}
+        </GifsWrapper>
+        <MoreButton onClick={buttonCallback} />
       </>
     );
   }

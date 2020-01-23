@@ -1,18 +1,20 @@
 import { connect } from 'react-redux';
 
-import { setSearchBarValue, setSearchButtonState } from '../actions';
+import { setSearchBarValue } from '../actions';
 import SearchBar from '../components/SearchBar';
 
-const mapStateToProps = (state) => ({
-  value: state.searchBar.value,
-  buttonState: state.searchBar.buttonState,
-});
+const mapStateToProps = (state) => {
+  const { value } = state.searchBar;
+  return {
+    value,
+    buttonState: value === '',
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   handleChange: (e) => {
     const { value } = e.target;
     dispatch(setSearchBarValue(value));
-    dispatch(setSearchButtonState(value === ''));
   },
 });
 

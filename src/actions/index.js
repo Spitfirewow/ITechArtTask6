@@ -1,29 +1,22 @@
-export const toggleGifInfoLoad = (didLoad) => ({
-  type: 'TOGGLE_GIF_INFO_LOAD',
-  didLoad,
+export const gifInfoLoaded = () => ({
+  type: 'GIF_INFO_LOADED',
 });
 
-export const toggleGifsLoad = (didLoad) => ({
-  type: 'TOGGLE_GIFS_LOAD',
-  didLoad,
+export const gifsLoaded = () => ({
+  type: 'GIFS_LOADED',
 });
 
-export const setGifInfo = (gifInfo) => ({
+export const setGifInfo = (payload) => ({
   type: 'SET_GIF_INFO',
-  gifInfo,
+  payload,
 });
 
-export const setGifs = (gifs) => ({
+export const setGifs = (payload) => ({
   type: 'SET_GIFS',
-  gifs,
+  payload,
 });
 
-export const setSearchBarValue = (value) => ({
+export const setSearchBarValue = (payload) => ({
   type: 'SET_SEARCH_BAR_VALUE',
-  value,
-});
-
-export const setSearchButtonState = (isDisabled) => ({
-  type: 'SET_SEARCH_BUTTON_STATE',
-  isDisabled,
+  payload,
 });

@@ -57,6 +57,7 @@ class APIManager {
     const url = getUrl(`${baseUrl}${id}`, { api_key: apiKey });
     const result = await makeRequest(url);
     this.gifInfo = getGifModel(result);
+    return this.gifInfo;
   }
 
   increasedisplayedCount() {

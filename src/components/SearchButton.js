@@ -10,8 +10,7 @@ export default function SearchButton({ disabled, onClick }) {
       disabled={disabled}
       onClick={onClick}
     >
-Search
-
+      Search
     </button>
   );
 }

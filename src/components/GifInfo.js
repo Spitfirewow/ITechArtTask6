@@ -3,7 +3,7 @@ import {
   string, shape,
 } from 'prop-types';
 
-import BackButton from './BackButton';
+import BackButton from '../containers/BackButtonContainer';
 import Picture from './Picture';
 
 export default function GifInfo({
